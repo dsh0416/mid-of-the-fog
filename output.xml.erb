@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Route</name>
+    <Folder>
+      <name>Route</name>
+      <% fitted_coordinates.each do |point| %>
+      <Placemark>
+        <Style>
+          <IconStyle>
+            <scale>0.9</scale>
+            <Icon>
+              <href>http://connect.garmin.com/image/main/icons/kml/grn-play.png</href>
+            </Icon>
+          </IconStyle>
+        </Style>
+        <TimeStamp>
+          <when>2022-08-14T07:52:55+00:00</when>
+        </TimeStamp>
+        <Point>
+          <altitudeMode>absolute</altitudeMode>
+          <coordinates><%= point.join(",") %></coordinates>
+        </Point>
+      </Placemark>
+      <% end %>
+
+      <% fitted_coordinates.each_cons(2) do |points| %>
+      <Placemark>
+        <Style>
+          <LineStyle>
+            <color>ff42ff00</color>
+            <width>2</width>
+          </LineStyle>
+        </Style>
+        <MultiGeometry>
+          <LineString>
+            <tessellate>1</tessellate>
+            <altitudeMode>absolute</altitudeMode>
+            <coordinates><%= points[0].join(",") %> <%= points[1].join(",") %></coordinates>
+          </LineString>
+        </MultiGeometry>
+      </Placemark>
+      <% end %>
+      
+    </Folder>
+  </Document>
+</kml>
